@@ -46,8 +46,9 @@ app.use(express.json());
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
 app.use("/api/comments", commentRoutes);
-app.use("/api/favoites", favRoutes);
+app.use("/api/favorites", favRoutes);
 app.use("/api/admin/property", adminRoutes);
+
 
 app.get('/',async(req,res)=>{
     res.json('hey 8080')
@@ -98,7 +99,7 @@ app.get("/api/admin/favorite-properties", async (req, res) => {
 // Routes for Properties
 app.get("/api/property", async (req, res) => {
   try {
-    const data = await propertyModl.find();
+    const data = await propertyModel.find();
     res.json(data);
   } catch (error) {
     console.error("Error fetching properties:", error);
@@ -109,7 +110,7 @@ app.get("/api/property", async (req, res) => {
 app.get("/api/property/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const data = await propertyModl.findOne({ _id: id });
+    const data = await propertyModel.findOne({ _id: id });
     res.json(data);
   } catch (error) {
     console.error("Error fetching property:", error);
@@ -126,7 +127,7 @@ app.post("/api/owner/signup", async (req, res) => {
     const { username, password } = req.body;
 
     // Check if the username already exists
-    const existingOwner = await Owner.findOe({ username });
+    const existingOwner = await Owner.findOne({ username });
     if (existingOwner) {
       return res.json({ message: "Username already exists" });
     }
@@ -320,7 +321,7 @@ app.get("/api/owner/:ownerId/profile", async (req, res) => {
 
 
 
-mongoose.connect(process.env.MONGO_URL).then(()=>{
+mongoose.connect(process.env.MONGO_URI).then(()=>{
     console.log('db connected')
     
     app.listen(8080,()=>{

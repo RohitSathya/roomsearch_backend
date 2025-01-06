@@ -20,17 +20,14 @@ require('dotenv').config()
 
 const app = express();
 
-// const options = {
-//   key: fs.readFileSync('/www/server/panel/vhost/cert/backend/privkey.pem'),
-//   cert: fs.readFileSync('/www/server/panel/vhost/cert/backend/fullchain.pem'),
- 
-// };
+
 
 
 app.use(cors({
   origin: [
     'https://dreamrooms-seek.vercel.app',
     'https://ppp-five-pi.vercel.app',
+    'https://rfs-tau.vercel.app'
 
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
